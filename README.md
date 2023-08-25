@@ -1,4 +1,4 @@
-# Домашнее задание к занятию "`Название занятия`" - `Фамилия и имя студента`
+# Домашнее задание к занятию "`Что такое DevOps. СI/СD`" - `Невзоров Владислав`
 
 
 ### Инструкция по выполнению домашнего задания
@@ -77,7 +77,7 @@ pipeline {
 }
 ```
 ---
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-2-1)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-2-1.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-2-2.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-2-3.png)
 
