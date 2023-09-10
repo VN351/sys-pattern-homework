@@ -127,10 +127,10 @@ Script
 
 NO HTML
 ---
-Before removal
+Before being removed
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-before-removal-html.png)
 
-After removal
+After being removed
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-removal-html.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-removal-html-deb-2.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-no-html.png)
