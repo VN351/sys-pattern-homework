@@ -1,4 +1,4 @@
-# Домашнее задание к занятию "`Что такое DevOps. СI/СD`" - `Невзоров Владислав`
+# Домашнее задание к занятию "`Disaster recovery и Keepalived`" - `Невзоров Владислав Викторович`
 
 
 ### Инструкция по выполнению домашнего задания
@@ -24,27 +24,20 @@
 
 ### Задание 1
 
-Что нужно сделать:
-
-Установите себе jenkins по инструкции из лекции или любым другим способом из официальной документации. Использовать Docker в этом задании нежелательно.
-Установите на машину с jenkins golang.
-Используя свой аккаунт на GitHub, сделайте себе форк репозитория. В этом же репозитории находится дополнительный материал для выполнения ДЗ.
-Создайте в jenkins Freestyle Project, подключите получившийся репозиторий к нему и произведите запуск тестов и сборку проекта go test . и docker build ..
-В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
-
----
-```
-https://github.com/VN351/sdvps-materials.git
-
-go test .
-
-docker build . 
+1. Дана схема для Cisco Packet Tracer, рассматриваемая в лекции.
+2. На данной схеме уже настроено отслеживание интерфейсов маршрутизаторов Gi0/1 (для нулевой группы)
+3. Необходимо аналогично настроить отслеживание состояния интерфейсов Gi0/0 (для первой группы).
+4. Для проверки корректности настройки, разорвите один из кабелей между одним из маршрутизаторов и Switch0 и запустите ping между PC0 и Server0.
+5. На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.
 ```
 ---
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-1-1.png) 
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-1-2.png) 
-
-
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-settings.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-1.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-2.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-3.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/CSP/hsrp_advanced_ok.ptk) 
 
 ### Задание 2
 
