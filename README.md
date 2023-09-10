@@ -32,14 +32,14 @@
 
 ---
 
-![alt text](https://github.com/username/reponame/blob/branch/path/image.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-settings.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-1.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-2.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-3.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/CSP/hsrp_advanced_ok.ptk) 
+
+https://drive.google.com/file/d/1dyozJ6ognU81kKghTuAB4xoyVVtKzMyu/view?usp=sharing 
 
 ### Задание 2
 
