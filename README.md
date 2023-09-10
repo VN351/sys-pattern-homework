@@ -110,10 +110,16 @@ vrrp_instance VI_1 {
 ```
 
 ---
+VM1
+---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-settings-deb1.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-settings-deb2.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-deb1.png) 
+---
+VM2
+---
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-settings-deb2.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-deb2.png) 
+---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-script.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-no-html.png) 
