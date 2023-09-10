@@ -117,10 +117,20 @@ VM1
 VM2
 ---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-settings-deb2.png)
--
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-deb2.png) 
+
+IP Keepavived
 ---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site.png) 
+
+Script
+---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-script.png) 
+
+NO HTML
+---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-no-html.png) 
+
+NO Nginx
+---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-stop-nginx.png) 
