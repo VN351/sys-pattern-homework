@@ -129,8 +129,20 @@ Script
 
 NO HTML
 ---
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-no-html.png) 
+Before removal
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-before-removal-html.png)
+
+After removal
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-removal-html.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-removal-html-deb-2.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-no-html.png)
 
 NO Nginx
 ---
+Before nginx stops
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-before-nginx-stops.png) 
+
+After nginx stops
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-nginx-stops.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-nginx-stops-deb2.png)  
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-stop-nginx.png) 
