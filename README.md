@@ -39,82 +39,82 @@
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
 
+Ссылка на файл CPT
 https://drive.google.com/file/d/1dyozJ6ognU81kKghTuAB4xoyVVtKzMyu/view?usp=sharing 
+
 
 ### Задание 2
 
-Что нужно сделать:
-1. Создайте новый проект pipeline.
-2. Перепишите сборку из задания 1 на declarative в виде кода.
-В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
+1. Запустите две виртуальные машины Linux, установите и настройте сервис Keepalived как в лекции, используя пример конфигурационного файла.
+2. Настройте любой веб-сервер (например, nginx или simple python server) на двух виртуальных машинах
+3. Напишите Bash-скрипт, который будет проверять доступность порта данного веб-сервера и существование файла index.html в root-директории данного веб-сервера.
+4. Настройте Keepalived так, чтобы он запускал данный скрипт каждые 3 секунды и переносил виртуальный IP на другой сервер, если bash-скрипт завершался с кодом, отличным от нуля (то есть порт веб-сервера был недоступен или отсутствовал index.html). Используйте для этого секцию vrrp_script
+5. На проверку отправьте получившейся bash-скрипт и конфигурационный файл keepalived, а также скриншот с демонстрацией переезда плавающего ip на другой сервер в случае недоступности порта или файла index.html
 
 ---
+script
 ```
-pipeline {
- agent any
- stages {
-  stage('Git') {
-   steps {
-    git branch: 'main', url: 'https://github.com/VN351/sdvps-materials.git'
-   }
-  }
-  stage('Test') {
-   steps {
-    sh 'go test .'
-   }
-  }
-  stage('Build') {
-   steps {
-    sh 'docker build .'
-   }
-  }
- }
-}
+#!/bin/bash
+
+# Проверка доступности порта веб-сервера nginx
+nc -z localhost 80
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+# Проверка существования файла index.html
+if [ ! -f /var/www/html/index.html ]; then
+    exit 1
+fi
+
+exit 0
 ```
----
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-2-1.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-2-2.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-2-3.png)
-
-### Задание 3-4
-
-Что нужно сделать:
-
-1. Установите на машину Nexus.
-2. Создайте raw-hosted репозиторий.
-3. Измените pipeline так, чтобы вместо Docker-образа собирался бинарный go-файл. Команду можно скопировать из Dockerfile.
-4. Загрузите файл в репозиторий с помощью jenkins.
-В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
-
----
+keepalived-deb-1
 ```
-pipeline {
-    agent any
-    stages {
-        stage('Git') {
-            steps {
-                git branch: 'main', url: 'https://github.com/VN351/sdvps-materials.git'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'go test .'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o app .'
-            }
-        }
-        stage('Push') {
-            steps {
-                sh 'curl -v -u admin:admin --upload-file ./app "http://192.168.90.56:8081/repository/task3/myapp/myapp:v${BUILD_NUMBER}"'
-            }
-        }
+vrrp_script check_webserver {
+        script "/usr/port.sh"
+        interval 3
+        fall 2
+        rise 2
+    }
+vrrp_instance VI_1 {
+    state MASTER
+    interface enp0s3
+    virtual_router_id 15
+    priority 201
+    advert_int 1
+    virtual_ipaddress {
+       192.168.90.14/24
+    }
+    track_script {
+       check_webserver
     }
 }
+
 ```
+keepalived-deb-2
+```
+vrrp_instance VI_1 {
+        state BACKUP
+        interface enp0s3
+        virtual_router_id 15
+        priority 200
+        advert_int 1
+
+        virtual_ipaddress {
+              192.168.90.14/24
+        }
+
+}
+
+```
+
 ---
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-3-1.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-3-2.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task-3-3.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-settings-deb1.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-settings-deb2.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-deb1.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-deb2.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-script.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-no-html.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-stop-nginx.png) 
