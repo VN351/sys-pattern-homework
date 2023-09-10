@@ -32,7 +32,7 @@
 
 ---
 Ссылка на файл CPT
-https://drive.google.com/file/d/1dyozJ6ognU81kKghTuAB4xoyVVtKzMyu/view?usp=sharing 
+[Ссылка на файл CPT](https://drive.google.com/file/d/1dyozJ6ognU81kKghTuAB4xoyVVtKzMyu/view?usp=sharing) 
 ---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-settings.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-1.png)
