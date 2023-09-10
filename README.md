@@ -29,10 +29,12 @@
 3. Необходимо аналогично настроить отслеживание состояния интерфейсов Gi0/0 (для первой группы).
 4. Для проверки корректности настройки, разорвите один из кабелей между одним из маршрутизаторов и Switch0 и запустите ping между PC0 и Server0.
 5. На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.
-```
+
 ---
+
+![alt text](https://github.com/username/reponame/blob/branch/path/image.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-settings.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-1.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-1.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-2.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-3.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
