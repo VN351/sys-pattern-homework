@@ -31,7 +31,6 @@
 5. На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.
 
 ---
-Ссылка на файл CPT
 [Ссылка на файл CPT](https://drive.google.com/file/d/1dyozJ6ognU81kKghTuAB4xoyVVtKzMyu/view?usp=sharing) 
 ---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-settings.png)
