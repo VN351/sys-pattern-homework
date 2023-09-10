@@ -117,7 +117,7 @@ VM2
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-settings-deb2.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-deb2.png) 
 
-IP Keepavived
+IP Keepalived
 ---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site.png) 
 
