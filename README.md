@@ -31,16 +31,15 @@
 5. На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.
 
 ---
-
+Ссылка на файл CPT
+https://drive.google.com/file/d/1dyozJ6ognU81kKghTuAB4xoyVVtKzMyu/view?usp=sharing 
+---
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-settings.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-1.png)
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-2.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-3.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
-
-Ссылка на файл CPT
-https://drive.google.com/file/d/1dyozJ6ognU81kKghTuAB4xoyVVtKzMyu/view?usp=sharing 
 
 
 ### Задание 2
