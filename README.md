@@ -24,123 +24,148 @@
 
 ### Задание 1
 
-1. Дана схема для Cisco Packet Tracer, рассматриваемая в лекции.
-2. На данной схеме уже настроено отслеживание интерфейсов маршрутизаторов Gi0/1 (для нулевой группы)
-3. Необходимо аналогично настроить отслеживание состояния интерфейсов Gi0/0 (для первой группы).
-4. Для проверки корректности настройки, разорвите один из кабелей между одним из маршрутизаторов и Switch0 и запустите ping между PC0 и Server0.
-5. На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.
+1. Запустите два simple python сервера на своей виртуальной машине на разных портах
+2. Установите и настройте HAProxy, воспользуйтесь материалами к лекции по ссылке
+3. Настройте балансировку Round-robin на 4 уровне.
+4. На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy.
 
 ---
-[Ссылка на файл CPT](https://drive.google.com/file/d/1dyozJ6ognU81kKghTuAB4xoyVVtKzMyu/view?usp=sharing) 
+ ```
+ global
+        log /dev/log    local0
+        log /dev/log    local1 notice
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
+
+        # Default SSL material locations
+        ca-base /etc/ssl/certs
+        crt-base /etc/ssl/private
+
+        # See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDS>        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY>        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+
+defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+        errorfile 400 /etc/haproxy/errors/400.http
+        errorfile 403 /etc/haproxy/errors/403.http
+        errorfile 408 /etc/haproxy/errors/408.http
+        errorfile 500 /etc/haproxy/errors/500.http
+        errorfile 502 /etc/haproxy/errors/502.http
+        errorfile 503 /etc/haproxy/errors/503.http
+        errorfile 504 /etc/haproxy/errors/504.http
+
+listen stats  # веб-страница со статистикой
+        bind                    :888
+        mode                    http
+        stats                   enable
+        stats uri               /stats
+        stats refresh           5s
+        stats realm             Haproxy\ Statistics
+
+
+frontend example  # секция фронтенд
+        mode tcp  # изменение режима работы на TCP
+        bind :8088
+        default_backend web_servers
+
+backend web_servers    # секция бэкенд
+        mode tcp  # изменение режима работы на TCP
+        balance roundrobin  # использование балансировки Round-robin
+        server s1 127.0.0.1:8888 check
+        server s2 127.0.0.1:9999 check
+
+
+listen web_tcp
+
+        bind :1325
+
+        mode tcp
+        balance roundrobin
+        server s1 127.0.0.1:8888 check inter 3s
+        server s2 127.0.0.1:9999 check inter 3s
+		
+ ```
 ---
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-settings.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-1.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-2.png) 
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-3.png) 
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/cisco-4.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task1.png)
+
+
 
 
 ### Задание 2
 
-1. Запустите две виртуальные машины Linux, установите и настройте сервис Keepalived как в лекции, используя пример конфигурационного файла.
-2. Настройте любой веб-сервер (например, nginx или simple python server) на двух виртуальных машинах
-3. Напишите Bash-скрипт, который будет проверять доступность порта данного веб-сервера и существование файла index.html в root-директории данного веб-сервера.
-4. Настройте Keepalived так, чтобы он запускал данный скрипт каждые 3 секунды и переносил виртуальный IP на другой сервер, если bash-скрипт завершался с кодом, отличным от нуля (то есть порт веб-сервера был недоступен или отсутствовал index.html). Используйте для этого секцию vrrp_script
-5. На проверку отправьте получившейся bash-скрипт и конфигурационный файл keepalived, а также скриншот с демонстрацией переезда плавающего ip на другой сервер в случае недоступности порта или файла index.html
+1. Запустите три simple python сервера на своей виртуальной машине на разных портах
+2. Настройте балансировку Weighted Round Robin на 7 уровне, чтобы первый сервер имел вес 2, второй - 3, а третий - 4
+3. HAproxy должен балансировать только тот http-трафик, который адресован домену example.local
+4. На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy c использованием домена example.local и без него.
 
 ---
-script
 ```
-#!/bin/bash
+global
+        log /dev/log    local0
+        log /dev/log    local1 notice
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
 
-# Проверка доступности порта веб-сервера nginx
-nc -z localhost 80
-if [ $? -ne 0 ]; then
-    exit 1
-fi
+        # Default SSL material locations
+        ca-base /etc/ssl/certs
+        crt-base /etc/ssl/private
 
-# Проверка существования файла index.html
-if [ ! -f /var/www/html/index.html ]; then
-    exit 1
-fi
+        # See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDS>    >
+defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+        errorfile 400 /etc/haproxy/errors/400.http
+        errorfile 403 /etc/haproxy/errors/403.http
+        errorfile 408 /etc/haproxy/errors/408.http
+        errorfile 500 /etc/haproxy/errors/500.http
+        errorfile 502 /etc/haproxy/errors/502.http
+        errorfile 503 /etc/haproxy/errors/503.http
+        errorfile 504 /etc/haproxy/errors/504.http
 
-exit 0
+listen stats  # веб-страница со статистикой
+        bind                    :888
+        mode                    http
+        stats                   enable
+        stats uri               /stats
+        stats refresh           5s
+        stats realm             Haproxy\ Statistics
+
+frontend example
+        mode http
+        bind :80
+        acl example hdr(host) -i example.local
+        use_backend example if example
+        default_backend web_servers
+		
+backend web_servers
+        mode http
+        server s1 127.0.0.1:7777
+
+backend example
+        mode http
+        balance roundrobin
+        acl is_example hdr(host) -i example.local
+        server s1 127.0.0.1:7777 weight 2 check
+        server s2 127.0.0.1:8888 weight 3 check
+        server s3 127.0.0.1:9999 weight 4 check
 ```
-keepalived-deb-1
-```
-vrrp_script check_webserver {
-        script "/usr/port.sh"
-        interval 3
-        fall 2
-        rise 2
-    }
-vrrp_instance VI_1 {
-    state MASTER
-    interface enp0s3
-    virtual_router_id 15
-    priority 201
-    advert_int 1
-    virtual_ipaddress {
-       192.168.90.14/24
-    }
-    track_script {
-       check_webserver
-    }
-}
-
-```
-keepalived-deb-2
-```
-vrrp_instance VI_1 {
-        state BACKUP
-        interface enp0s3
-        virtual_router_id 15
-        priority 200
-        advert_int 1
-
-        virtual_ipaddress {
-              192.168.90.14/24
-        }
-
-}
-
-```
-
-VM1
 ---
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-settings-deb1.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-deb1.png) 
-
-VM2
----
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-settings-deb2.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-deb2.png) 
-
-IP Keepalived
----
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site.png) 
-
-Script
----
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-script.png) 
-
-NO HTML
----
-Before being removed
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-before-removal-html.png)
-
-After being removed
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-removal-html.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-removal-html-deb-2.png) 
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-no-html.png)
-
-NO Nginx
----
-Before nginx stops
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-before-nginx-stops.png) 
-
-After nginx stops
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-nginx-stops.png)
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-after-nginx-stops-deb2.png)  
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/keepalived-site-stop-nginx.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task2.png)
