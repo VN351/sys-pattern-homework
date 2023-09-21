@@ -1,4 +1,4 @@
-# Домашнее задание к занятию "`Кластеризация и балансировка нагрузки`" - `Невзоров Владислав Викторович`
+# Домашнее задание к занятию "`Резервное копирование`" - `Невзоров Владислав Викторович`
 
 
 ### Инструкция по выполнению домашнего задания
@@ -24,148 +24,58 @@
 
 ### Задание 1
 
-1. Запустите два simple python сервера на своей виртуальной машине на разных портах
-2. Установите и настройте HAProxy, воспользуйтесь материалами к лекции по ссылке
-3. Настройте балансировку Round-robin на 4 уровне.
-4. На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy.
+1. Составьте команду rsync, которая позволяет создавать зеркальную копию домашней директории пользователя в директорию /tmp/backup
+2. Необходимо исключить из синхронизации все директории, начинающиеся с точки (скрытые)
+3. Необходимо сделать так, чтобы rsync подсчитывал хэш-суммы для всех файлов, даже если их время модификации и размер идентичны в источнике и приемнике.
+4. На проверку направить скриншот с командой и результатом ее выполнения
 
 ---
  ```
- global
-        log /dev/log    local0
-        log /dev/log    local1 notice
-        chroot /var/lib/haproxy
-        stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
-        stats timeout 30s
-        user haproxy
-        group haproxy
-        daemon
-
-        # Default SSL material locations
-        ca-base /etc/ssl/certs
-        crt-base /etc/ssl/private
-
-        # See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDS>        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY>        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
-
-defaults
-        log     global
-        mode    http
-        option  httplog
-        option  dontlognull
-        timeout connect 5000
-        timeout client  50000
-        timeout server  50000
-        errorfile 400 /etc/haproxy/errors/400.http
-        errorfile 403 /etc/haproxy/errors/403.http
-        errorfile 408 /etc/haproxy/errors/408.http
-        errorfile 500 /etc/haproxy/errors/500.http
-        errorfile 502 /etc/haproxy/errors/502.http
-        errorfile 503 /etc/haproxy/errors/503.http
-        errorfile 504 /etc/haproxy/errors/504.http
-
-listen stats  # веб-страница со статистикой
-        bind                    :888
-        mode                    http
-        stats                   enable
-        stats uri               /stats
-        stats refresh           5s
-        stats realm             Haproxy\ Statistics
-
-
-frontend example  # секция фронтенд
-        mode tcp  # изменение режима работы на TCP
-        bind :8088
-        default_backend web_servers
-
-backend web_servers    # секция бэкенд
-        mode tcp  # изменение режима работы на TCP
-        balance roundrobin  # использование балансировки Round-robin
-        server s1 127.0.0.1:8888 check
-        server s2 127.0.0.1:9999 check
-
-
-listen web_tcp
-
-        bind :1325
-
-        mode tcp
-        balance roundrobin
-        server s1 127.0.0.1:8888 check inter 3s
-        server s2 127.0.0.1:9999 check inter 3s
+rsync -avzc --delete --exclude ".*" /home/vlad/ /tmp/backup/
 		
  ```
 ---
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task1.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/rsync1.png)
 
 
 
 
 ### Задание 2
 
-1. Запустите три simple python сервера на своей виртуальной машине на разных портах
-2. Настройте балансировку Weighted Round Robin на 7 уровне, чтобы первый сервер имел вес 2, второй - 3, а третий - 4
-3. HAproxy должен балансировать только тот http-трафик, который адресован домену example.local
-4. На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy c использованием домена example.local и без него.
+1. Написать скрипт и настроить задачу на регулярное резервное копирование домашней директории пользователя с помощью rsync и cron.
+2. Резервная копия должна быть полностью зеркальной
+3. Резервная копия должна создаваться раз в день, в системном логе должна появляться запись об успешном или неуспешном выполнении операции
+4. Резервная копия размещается локально, в директории `/tmp/backup`
+5. На проверку направить файл crontab и скриншот с результатом работы утилиты.
 
 ---
+script
 ```
-global
-        log /dev/log    local0
-        log /dev/log    local1 notice
-        chroot /var/lib/haproxy
-        stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
-        stats timeout 30s
-        user haproxy
-        group haproxy
-        daemon
+#!/bin/bash
 
-        # Default SSL material locations
-        ca-base /etc/ssl/certs
-        crt-base /etc/ssl/private
+# Путь к директории пользователя
+USER_HOME_DIR="/home/vlad"
 
-        # See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDS>    >
-defaults
-        log     global
-        mode    http
-        option  httplog
-        option  dontlognull
-        timeout connect 5000
-        timeout client  50000
-        timeout server  50000
-        errorfile 400 /etc/haproxy/errors/400.http
-        errorfile 403 /etc/haproxy/errors/403.http
-        errorfile 408 /etc/haproxy/errors/408.http
-        errorfile 500 /etc/haproxy/errors/500.http
-        errorfile 502 /etc/haproxy/errors/502.http
-        errorfile 503 /etc/haproxy/errors/503.http
-        errorfile 504 /etc/haproxy/errors/504.http
+# Путь к директории для резервных копий
+BACKUP_DIR="/tmp/backup"
 
-listen stats  # веб-страница со статистикой
-        bind                    :888
-        mode                    http
-        stats                   enable
-        stats uri               /stats
-        stats refresh           5s
-        stats realm             Haproxy\ Statistics
+# Имя файла для логов
+LOG_FILE="/tmp/backup/backup.log"
 
-frontend example
-        mode http
-        bind :80
-        acl example hdr(host) -i example.local
-        use_backend example if example
-        default_backend web_servers
-		
-backend web_servers
-        mode http
-        server s1 127.0.0.1:7777
+# Команда для создания резервной копии
+RSYNC_CMD="rsync -av --delete $USER_HOME_DIR $BACKUP_DIR"
 
-backend example
-        mode http
-        balance roundrobin
-        acl is_example hdr(host) -i example.local
-        server s1 127.0.0.1:7777 weight 2 check
-        server s2 127.0.0.1:8888 weight 3 check
-        server s3 127.0.0.1:9999 weight 4 check
+# Выполнение команды для создания резервной копии
+$RSYNC_CMD >> $LOG_FILE 2>&1
+
+# Проверка на успешность выполнения команды
+if [ $? -eq 0 ]
+then
+    echo "Backup successful" >> $LOG_FILE
+else
+    echo "Backup failed" >> $LOG_FILE
+fi
+
 ```
 ---
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Task2.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/rsync-script-successful.png)
