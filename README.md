@@ -51,7 +51,7 @@
 Запишите в memcached несколько ключей с любыми именами и значениями, для которых выставлен TTL 5.
 Приведите скриншот, на котором видно, что спустя 5 секунд ключи удалились из базы.
 
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Memcached-5sec.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/Mamcached-5sec.png)
 
 
 ### Задание 4
