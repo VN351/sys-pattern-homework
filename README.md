@@ -23,24 +23,24 @@
 ---
 # Задание 1
 Получите уникальные названия районов из таблицы с адресами, которые начинаются на “K” и заканчиваются на “a” и не содержат пробелов.
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sql-t1.png)
+![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt1.png)
 
 # Задание 2
 Получите из таблицы платежей за прокат фильмов информацию по платежам, которые выполнялись в промежуток с 15 июня 2005 года по 18 июня 2005 года включительно и стоимость которых превышает 10.00.
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sql-t2.png)
+![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt2.png)
 
 # Задание 3
 Получите последние пять аренд фильмов.
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sql-t3.png)
+![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt3.png)
 
 # Задание 4
 Одним запросом получите активных покупателей, имена которых Kelly или Willie.
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sql-t4-1.png) 
+![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt41.png) 
 
 Сформируйте вывод в результат таким образом:
 
 - все буквы в фамилии и имени из верхнего регистра переведите в нижний регистр,
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sql-t4-2.png)
+![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt42.png)
 
 - замените буквы 'll' в именах на 'pp'.
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sql-t4-3.png)
+![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt43.png)
