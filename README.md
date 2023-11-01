@@ -1,4 +1,4 @@
-# Домашнее задание к занятию "`Работа с данными (DDL/DML)`" - `Невзоров Владислав Викторович`
+# Домашнее задание к занятию "`SQL. Часть 1`" - `Невзоров Владислав Викторович`
 
 
 ### Инструкция по выполнению домашнего задания
@@ -27,20 +27,20 @@
 
 # Задание 2
 Получите из таблицы платежей за прокат фильмов информацию по платежам, которые выполнялись в промежуток с 15 июня 2005 года по 18 июня 2005 года включительно и стоимость которых превышает 10.00.
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt2.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/sqlt2.png)
 
 # Задание 3
 Получите последние пять аренд фильмов.
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt3.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/sqlt3.png)
 
 # Задание 4
 Одним запросом получите активных покупателей, имена которых Kelly или Willie.
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt41.png) 
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/sqlt41.png) 
 
 Сформируйте вывод в результат таким образом:
 
 - все буквы в фамилии и имени из верхнего регистра переведите в нижний регистр,
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt42.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/sqlt42.png)
 
 - замените буквы 'll' в именах на 'pp'.
-![alt text](https://github.com/VN351/HW-3/raw/main/img/sqlt43.png)
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/sqlt43.png)
