@@ -29,6 +29,9 @@
 Получите из таблицы платежей за прокат фильмов информацию по платежам, которые выполнялись в промежуток с 15 июня 2005 года по 18 июня 2005 года включительно и стоимость которых превышает 10.00.
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/sqlt2.png)
 
+ИСПРАВЛЕННЫЙ ВАРИАНТ
+![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/sqlt2i.png)
+
 # Задание 3
 Получите последние пять аренд фильмов.
 ![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/sqlt3.png)
