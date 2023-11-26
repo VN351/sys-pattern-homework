@@ -42,6 +42,10 @@
 Какие уязвимости были вами обнаружены? (список со ссылками: достаточно трёх уязвимостей)
 Приведите ответ в свободной форме.
 
+1. FTP - 21 port - уязвимость https://www.exploit-db.com/exploits/49757 или https://www.exploit-db.com/exploits/17491
+2. FTP - 2121 port - уязвимость https://www.exploit-db.com/exploits/15662 или https://www.exploit-db.com/exploits/16921
+3. IRC - 6667 port - уязвимость https://www.exploit-db.com/exploits/16922 или https://www.exploit-db.com/exploits/13853
+
 
 # Задание 2
 Проведите сканирование Metasploitable в режимах SYN, FIN, Xmas, UDP.
@@ -51,23 +55,28 @@
 Ответьте на следующие вопросы:
 
 Чем отличаются эти режимы сканирования с точки зрения сетевого трафика?
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/master-slave-conf-master.png)
-
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/master-slave-conf-slave.png)
-
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/master-slave-settings.png)
-
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/master-slave.png)
 
 Как отвечает сервер?
 
-
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/master-slave-conf-master.png)
-
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/master-slave-conf-slave.png)
-
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/master-slave-settings.png)
-
-![alt text](https://github.com/VN351/sys-pattern-homework/raw/main/img/master-slave.png)
-
 Приведите ответ в свободной форме.
+
+1. SYN сканирование:
+   - При сканировании в режиме SYN отправляется запрос на установление соединения TCP (синхронизация) без фактической отправки данных.
+   - Если порт открыт, сервер отвечает сегментом SYN/ACK (синхронизация/подтверждение) для установления соединения.
+   - Если порт закрыт, сервер отвечает сегментом RST (сброс соединения) для отказа в установлении соединения.
+
+2. FIN сканирование:
+   - При сканировании в режиме FIN отправляется пустой флаг FIN с целью завершения соединения.
+   - Если порт открыт, сервер может проигнорировать запрос или вернуть сегмент RST.
+   - Если порт закрыт, сервер возвращает сегмент RST для указания закрытия соединения.
+
+3. Xmas сканирование:
+   - При Xmas сканировании отправляются пакеты с установленными флагами FIN, PSH и URG, что необычно и может использоваться для обнаружения открытых портов.
+   - Если порт открыт, сервер может не отвечать, отвечать с RST, или другим нестандартным поведением.
+   - Если порт закрыт, сервер возвращает сегмент RST или игнорирует запрос.
+
+4. UDP сканирование:
+   - UDP сканирование осуществляется путем отправки UDP пакетов на определенные порты.
+   - Если порт открыт, сервер может отправить обратно ICMP порт недостижим или ответить на запрос.
+   - Если порт закрыт, сервер может отправить обратно ICMP порт недостижим или игнорировать запрос.
+
